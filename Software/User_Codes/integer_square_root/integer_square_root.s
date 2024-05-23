@@ -1,7 +1,4 @@
-        .text
-        .globl _start
-
-_start:
+main:
         # Initialize input number and binary search bounds
         addi a0, a0, 23  # Load input number (23) into a0
         li t0, 0         # t0 = low = 0 (initialize low bound)
