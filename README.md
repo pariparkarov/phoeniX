@@ -17,7 +17,7 @@ The code enters a loop labeled `binary_search` which performs the binary search 
     - If `t3 < a0`, it means the square root is greater than `mid`, so it updates the low bound to `mid + 1` and jumps back to `binary_search`.
     - If `t3 > a0`, it means the square root is less than `mid`, so it updates the high bound to `mid - 1` and jumps back to `binary_search`.
     - If `t3 == a0`, it means `mid` is the square root, so it stores `mid` in `t1` (result register) and exits the loop.
-![alt text](image.png)
+![alt text](integer_square_root.png)
 The output is t2.
 
 **quick_sort**:
@@ -53,5 +53,5 @@ partition function
 - After the loop, it swaps the pivot element with `array[i+1]`.
 - Returns the final value of `i` (the pivot index) in `a0`.
 - Restores registers from the stack before returning.
-![alt text](image.png)
+![alt text](quick_sort.png)
 The outputs are s2 and s6.
