@@ -8,50 +8,93 @@ Computer Organization - Spring 2024
 - Student ID: 400411153
 - Date:5/23/2024
 
-## Report
+---
 
-**integer_square_root**:
+## Report 📝
 
-The code use the binary search alghorithm to find the square root. The number is loaded into register a0 and with the binary_search loop, the square of the number less than equal of the number loaded into a0 is found.
-The code enters a loop labeled `binary_search` which performs the binary search algorithm: It checks if the low bound (`t0`) is greater than the high bound (`t1`). If so, it exits the loop. It calculates the mid value as `(low + high) / 2` and stores it in `t2`. It calculates `mid * mid` and stores the result in `t3`. It compares `t3` (mid squared) with the input number (`a0`):
-    - If `t3 < a0`, it means the square root is greater than `mid`, so it updates the low bound to `mid + 1` and jumps back to `binary_search`.
-    - If `t3 > a0`, it means the square root is less than `mid`, so it updates the high bound to `mid - 1` and jumps back to `binary_search`.
-    - If `t3 == a0`, it means `mid` is the square root, so it stores `mid` in `t1` (result register) and exits the loop.
-![alt text](integer_square_root.png)
-The output is t2.
+### Quick Sort 
 
-**quick_sort**:
-The last number of the array is used as pivot.
+Quick sort is a divide-and-conquer algorithm that sorts an array by partitioning it into sub-arrays, which are then recursively sorted.
 
- main function
-- Initializes the stack pointer and allocates space for local variables.
-- Initializes an array `arr` with the values `[6, 6, 1, 2, 4]`.
-- Sets up arguments for the `quicksort` function call:
-- `a0` holds the base address of the array.
-- `a1` holds the low index (0).
-- `a2` holds the high index (4).
-- Calls the `quicksort` function.
-- After the sorting is done, it loads the sorted elements back into registers `s2` through `s6` for inspection.
-- Restores registers and deallocates the stack space before exiting.
+#### Main Routine 🛠️
 
-quicksort function
-- Implements the recursive QuickSort algorithm.
-- Saves registers and arguments on the stack.
-- Checks the base case: If `low >= high`, it returns without doing anything.
-- Calls the `partition` function to partition the array around a pivot element, receiving the pivot index in `a0`.
-- Recursively calls itself for the left and right partitions of the array.
-- Restores registers and arguments from the stack before returning.
+1. Initialize the stack for future use.
+2. Store the input array into memory.
+3. Set up call arguments for the `quicksort` routine and call it.
+4. After returning from the `quicksort` routine, store the results from memory into registers (`s2` to `s6`) to view them in the GTKWave application.
+5. Restore registers and end.
 
-partition function
-- Implements the partition step of the QuickSort algorithm.
-- Saves registers on the stack.
-- Selects the last element (`array[high]`) as the pivot element.
-- Initializes two indices `i` and `j`.
-- Iterates through the array:
-- If `array[j] <= pivot`, it swaps `array[i+1]` and `array[j]` and increments `i`.
-- Increments `j` in any case.
-- After the loop, it swaps the pivot element with `array[i+1]`.
-- Returns the final value of `i` (the pivot index) in `a0`.
-- Restores registers from the stack before returning.
-![alt text](quick_sort.png)
-The outputs are s2 and s6.
+#### Quicksort Routine 🔄
+
+1. Store the previous state of the program.
+2. Check condition `low >= high`. If true, go to the `qs_return` routine.
+3. Save arguments for recursive calls.
+4. Call the `partition` routine to partition the array with its pivot index in `a0`.
+5. Perform two recursive calls to `quicksort`: one for the left array and another for the right array.
+6. Go to the `qs_return` routine, which then takes us to the `main` routine.
+
+#### QS Return Routine 🔙
+
+1. Restore registers.
+2. Return to the `main` routine.
+
+#### Partition Routine 📦
+
+1. Save the previous state.
+2. Choose the pivot as the last element of the array.
+
+#### Partition Loop Routine 🔁
+
+1. Use two pointers (`i` and `j`) initialized in the `partition` routine to arrange the array based on the pivot.
+
+#### Partition If Routine 🔄
+
+1. Perform the swapping.
+
+#### Partition Continue Routine 🔄
+
+1. Complete the loop created in the `partition_loop` routine.
+
+#### Partition End Routine 🏁
+
+1. Place the pivot in its correct position.
+2. Restore registers and return to the `quicksort` routine.
+
+![Quick Sort Image](https://github.com/jes1per/phoeniX_4022/blob/573a05ae2aa3be79fc6f82232c1a02ef24220e5d/Software/User_Codes/integer_square_root/integer_square_root.jpg)
+
+---
+
+### Integer Square Root using Binary Search 
+
+This code performs an integer square root calculation using a binary search algorithm.
+
+#### Main Routine 🛠️
+
+1. Load the input number into the `a0` register.
+2. Copy `a0` into `t1`, which will be our `high`.
+
+#### Binary Search Routine 🔍
+
+1. Check condition `low < high`. If `low > high`, an approximate square root is found and exit.
+2. Find the `mid` of the input.
+3. Compare the square of `mid` with the input and take action based on the result.
+
+#### Mid is Exact Routine ✅
+
+1. If the square of `mid` is exactly the input, the exact square root is found, and the program ends.
+
+#### Mid is Too Low Routine ⬇️
+
+1. If the square of `mid` is lower than the input, set `low` to `mid + 1` and redo the `binary_search` routine.
+
+#### Mid is Too High Routine ⬆️
+
+1. If the square of `mid` is higher than the input, set `high` to `mid - 1` and redo the `binary_search` routine.
+
+#### Finish Routine 🏁
+
+1. Store the last `mid` into `a0` as the result.
+
+![Binary Search Image](https://github.com/jes1per/phoeniX_4022/blob/573a05ae2aa3be79fc6f82232c1a02ef24220e5d/Software/User_Codes/quick_sort/quick_sort.jpg)
+
+---
